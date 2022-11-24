@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class Author: BaseUser
+    public class User:BaseUser
     {
-        public string Nationality { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string Email{ get; set; }
+        public string ProfilePictureUrl { get; set; }
+
     }
 }
