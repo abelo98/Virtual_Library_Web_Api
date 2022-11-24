@@ -8,9 +8,9 @@ using VL_DataAccess.Models;
 
 namespace VL_DataAccess
 {
-    public class VLContext:DbContext
+    public class VLContext : DbContext
     {
-        public VLContext(DbContextOptions options ):base(options)
+        public VLContext(DbContextOptions options) : base(options)
         {
 
         }

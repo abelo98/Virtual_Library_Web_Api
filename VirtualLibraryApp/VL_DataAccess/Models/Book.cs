@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class Book: BaseEntity
+    public class Book
     {
         [Required]
         [MaxLength(100)]
@@ -33,11 +34,17 @@ namespace VL_DataAccess.Models
         public string DowloadUrl { get; set; }
 
         [Required]
-        public int ISBN { get; set; } /*check that int suits the number*/
+        [MaxLength(13)]
+        [Column(TypeName = "varchar(13)")]
+        public string ISBN { get; set; } /*check that int suits the number*/
 
         [Required]
-        [Range(0,5)]
-        public int Rate{ get; set; }
+        [Range(0, 5)]
+        public int Rate { get; set; }
+
+        #region Navigation props
+
+        #endregion
 
     }
 }
