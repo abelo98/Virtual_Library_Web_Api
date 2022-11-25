@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class BaseUser:IBaseEntity
+    public class BaseUser : BaseEntity
     {
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(100)]
-        public string Name { get; set; } 
+        public string Name { get; set; }
     }
 }

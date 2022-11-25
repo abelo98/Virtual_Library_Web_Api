@@ -26,7 +26,7 @@ namespace VL_DataAccess.Models
 
         #region Navigation props
 
-        public string BookId { get; set; }
+        public Guid BookId { get; set; }
         public Book Book { get; set; }
 
         #endregion
