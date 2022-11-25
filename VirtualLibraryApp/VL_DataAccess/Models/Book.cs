@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class Book:IBaseEntity
+    public class Book : BaseEntity
     {
 
         [Required]
