@@ -7,15 +7,20 @@ using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class User:BaseUser
+    public class User : BaseUser
     {
         [Required]
         [DataType(DataType.EmailAddress)]
-        public string Email{ get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.ImageUrl)]
         public string ProfilePictureUrl { get; set; }
+
+        #region Navigation props
+        ICollection<Author> SuscribedTo { get; set; }
+        ICollection<BookReview> BookReviews { get; set; }
+        #endregion
 
     }
 }

@@ -8,9 +8,9 @@ using VL_DataAccess.Models;
 
 namespace VL_DataAccess
 {
-    public class VLContext:DbContext
+    public class VLContext : DbContext
     {
-        public VLContext(DbContextOptions options ):base(options)
+        public VLContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -25,6 +25,12 @@ namespace VL_DataAccess
             modelBuilder.Entity<BookReview>()
                 .Property(br => br.Rate)
                 .HasConversion<int>();
+            modelBuilder.Entity<Book>()
+                .HasKey(b => b.ISBN);
+            modelBuilder.Entity<Book>()
+                .HasMany(b => b.BookReviews)
+                .WithOne(br => br.Book);
+
         }
 
     }
