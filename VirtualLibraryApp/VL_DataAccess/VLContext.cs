@@ -25,8 +25,6 @@ namespace VL_DataAccess
             modelBuilder.Entity<BookReview>()
                 .Property(br => br.Rate)
                 .HasConversion<int>();
-            //modelBuilder.Entity<Book>()
-            //    .HasKey(b => b.Id);
 
         }
 
