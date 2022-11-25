@@ -10,7 +10,6 @@ namespace VL_DataAccess.Models
 {
     public class Book
     {
-        public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -45,7 +44,8 @@ namespace VL_DataAccess.Models
         public int Rate { get; set; }
 
         #region Navigation props
-        public ICollection<Author> Authors { get; set; }
+        public Guid AuthorId { get; set; }
+        public Author Author { get; set; }
 
         public ICollection<BookReview> BookReviews { get; set; }
         #endregion
