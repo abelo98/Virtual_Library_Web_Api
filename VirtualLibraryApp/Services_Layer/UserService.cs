@@ -9,7 +9,7 @@ using VL_DataAccess.Models;
 
 namespace Services_Layer
 {
-    public class UserService
+    public class UserService : IUserService
     {
         readonly Repository<User> _repository;
         public UserService(Repository<User> repository)
