@@ -10,6 +10,8 @@ namespace VL_DataAccess.Models
 {
     public class Book
     {
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
@@ -36,7 +38,7 @@ namespace VL_DataAccess.Models
         [Required]
         [MaxLength(13)]
         [Column(TypeName = "varchar(13)")]
-        public ISBN_10 ISBN { get; set; }
+        public string ISBN { get; set; }
 
         [Required]
         [Range(0, 5)]

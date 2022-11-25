@@ -28,7 +28,9 @@ namespace VL_DataAccess
             modelBuilder.Entity<Book>()
                 .HasKey(b => b.ISBN);
             modelBuilder.Entity<Book>()
-               .OwnsOne(b => b.ISBN);
+                .HasMany(b => b.BookReviews)
+                .WithOne(br => br.Book);
+
         }
 
     }

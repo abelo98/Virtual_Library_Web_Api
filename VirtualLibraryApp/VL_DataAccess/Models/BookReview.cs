@@ -26,7 +26,7 @@ namespace VL_DataAccess.Models
 
         #region Navigation props
 
-        public ISBN_10 BookId { get; set; }
+        public string BookId { get; set; }
         public Book Book { get; set; }
 
         #endregion
