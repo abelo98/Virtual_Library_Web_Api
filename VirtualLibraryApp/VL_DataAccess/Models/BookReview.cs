@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class BookReview:BaseEntity
+    public class BookReview : BaseEntity
     {
         [Required]
         [DataType(DataType.DateTime)]
@@ -22,5 +22,13 @@ namespace VL_DataAccess.Models
         public RateReview Rate { get; set; }
 
         public Guid UserId { get; set; }
+
+
+        #region Navigation props
+
+        public GuISBN_10 BookId { get; set; }
+        public Book Book { get; set; }
+
+        #endregion
     }
 }

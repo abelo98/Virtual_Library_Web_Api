@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class Author: BaseUser
+    public class Author : BaseUser
     {
         [Required]
         [MaxLength(50)]
@@ -16,5 +16,10 @@ namespace VL_DataAccess.Models
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime BirthDate { get; set; }
+
+        #region Navigation props
+        ICollection<Book> Books { get; set; }
+        ICollection<User> Users { get; set; }
+        #endregion
     }
 }

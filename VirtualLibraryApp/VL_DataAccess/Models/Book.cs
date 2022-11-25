@@ -16,7 +16,7 @@ namespace VL_DataAccess.Models
 
         [Required]
         [MaxLength(100)]
-        public string Author { get; set; }
+        public string AuthorName { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -36,14 +36,17 @@ namespace VL_DataAccess.Models
         [Required]
         [MaxLength(13)]
         [Column(TypeName = "varchar(13)")]
-        public string ISBN { get; set; } /*check that int suits the number*/
+        public ISBN_10 ISBN { get; set; }
 
         [Required]
         [Range(0, 5)]
         public int Rate { get; set; }
 
         #region Navigation props
+        public Guid AuthorId { get; set; }
+        public Author Author { get; set; }
 
+        public ICollection<BookReview> BookReviews { get; set; }
         #endregion
 
     }
