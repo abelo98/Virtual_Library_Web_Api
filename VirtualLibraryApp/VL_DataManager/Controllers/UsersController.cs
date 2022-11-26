@@ -78,40 +78,17 @@ namespace VL_DataManager.Controllers
 
             try
             {
-                LibraryUser libraryUser = _mapper.Map<LibraryUser>(libraryUserDto);
+                var libraryUser = _mapper.Map<JsonPatchDocument<LibraryUser>>(libraryUserDto);
                 LibraryUser updatedEmployee = await _libraryUserService.PartialUpdate(id, libraryUser);
-                return Ok(userDto);
+                var response = _mapper.Map<JsonPatchDocument<UserDto>>(updatedEmployee);
+
+                return Ok(response);
             }
             catch (Exception)
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
                         "Error inserting data on the database");
-            }
-
-            var updatedEmployee = await _libraryUserService.PartialUpdate(id, libraryUser);
-            if (updatedEmployee == null)
-            {
-                return NotFound();
-            }
-            return Ok(updatedEmployee);
-
-            if (patchDoc != null)
-            {
-                var customer = CreateCustomer();
-
-                patchDoc.ApplyTo(customer, ModelState);
-
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                return new ObjectResult(customer);
-            }
-            else
-            {
-                return BadRequest(ModelState);
             }
         }
 
