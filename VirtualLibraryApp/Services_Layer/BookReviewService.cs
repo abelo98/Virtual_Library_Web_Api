@@ -9,7 +9,7 @@ using VL_DataAccess.Models;
 
 namespace Services_Layer
 {
-    public class BookReviewService
+    public class BookReviewService : IBookReviewService
     {
         readonly Repository<BookReview> _repository;
         public BookReviewService(Repository<BookReview> repository)

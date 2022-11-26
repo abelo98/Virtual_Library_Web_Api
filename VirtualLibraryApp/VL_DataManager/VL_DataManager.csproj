@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Repository_Layer\Repository_Layer.csproj" />
+    <ProjectReference Include="..\Services_Layer\Services_Layer.csproj" />
     <ProjectReference Include="..\VL_DataAccess\VL_DataAccess.csproj" />
   </ItemGroup>
 
