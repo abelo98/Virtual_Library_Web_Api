@@ -21,10 +21,10 @@ builder.Services.AddDbContext<VLContext>(options =>
 
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IAuthorService, AuthorService>();
-builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IBookReviewService, BookReviewService>();
+//builder.Services.AddSingleton<IUserService, UserService>();
+//builder.Services.AddTransient<IAuthorService, AuthorService>();
+//builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<IBookReviewService, BookReviewService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 

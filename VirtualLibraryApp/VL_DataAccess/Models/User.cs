@@ -13,9 +13,8 @@ namespace VL_DataAccess.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
         [DataType(DataType.ImageUrl)]
-        public string ProfilePictureUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
 
         #region Navigation props
         ICollection<Author> SuscribedTo { get; set; }

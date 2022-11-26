@@ -11,7 +11,7 @@ namespace Services_Layer
 {
     public class AuthorService : IAuthorService
     {
-        readonly Repository<Author> _repository;
+        readonly IRepository<Author> _repository;
         public AuthorService(Repository<Author> repository)
         {
             _repository = repository;

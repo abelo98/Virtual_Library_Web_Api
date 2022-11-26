@@ -11,7 +11,7 @@ namespace Services_Layer
 {
     public class UserService : IUserService
     {
-        readonly Repository<User> _repository;
+        readonly IRepository<User> _repository;
         public UserService(Repository<User> repository)
         {
             _repository = repository;
