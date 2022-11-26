@@ -8,8 +8,8 @@ namespace VL_DataManager.Configs
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDto>();
-            CreateMap<User, UserDto>();
+            CreateMap<LibraryUser, UserDto>();
+            CreateMap<UserDto, LibraryUser>();
 
         }
     }

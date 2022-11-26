@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class User : BaseUser
+    public class LibraryUser : BaseUser
     {
         [Required]
         [DataType(DataType.EmailAddress)]

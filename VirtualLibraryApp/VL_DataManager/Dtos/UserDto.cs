@@ -12,7 +12,7 @@ namespace VL_DataManager.Dtos
         public string Email { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        public string ProfilePictureUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
 
         [Required]
         [MaxLength(100)]

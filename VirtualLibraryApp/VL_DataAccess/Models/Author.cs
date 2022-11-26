@@ -19,7 +19,7 @@ namespace VL_DataAccess.Models
 
         #region Navigation props
         ICollection<Book> Books { get; set; }
-        ICollection<User> Users { get; set; }
+        ICollection<LibraryUser> Users { get; set; }
         #endregion
     }
 }

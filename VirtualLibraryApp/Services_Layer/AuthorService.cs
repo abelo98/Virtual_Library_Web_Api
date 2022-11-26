@@ -12,7 +12,7 @@ namespace Services_Layer
     public class AuthorService : IAuthorService
     {
         readonly IRepository<Author> _repository;
-        public AuthorService(Repository<Author> repository)
+        public AuthorService(IRepository<Author> repository)
         {
             _repository = repository;
         }

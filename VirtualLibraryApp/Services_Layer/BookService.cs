@@ -12,7 +12,7 @@ namespace Services_Layer
     public class BookService : IBookService
     {
         readonly IRepository<Book> _repository;
-        public BookService(Repository<Book> repository)
+        public BookService(IRepository<Book> repository)
         {
             _repository = repository;
         }
