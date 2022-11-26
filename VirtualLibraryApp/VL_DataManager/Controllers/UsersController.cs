@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Services_Layer;
 using VL_DataAccess.Models;
@@ -12,13 +13,13 @@ namespace VL_DataManager.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        readonly IUserService _userService;
+        readonly ILibraryUserService _libraryUserService;
         readonly IMapper _mapper;
 
 
-        public UsersController(IUserService userService , IMapper mapper)
+        public UsersController(ILibraryUserService libraryUserService , IMapper mapper)
         {
-            _userService = userService;
+            _libraryUserService = libraryUserService;
             _mapper = mapper;
         }
         // GET: api/<UserController>
@@ -37,7 +38,7 @@ namespace VL_DataManager.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UserDto userDto)
+        public async Task<IActionResult> Post([FromBody] UserDto libraryUserDto)
         {
             if (!ModelState.IsValid)
             {
@@ -46,9 +47,9 @@ namespace VL_DataManager.Controllers
 
             try
             {
-                LibraryUser libraryUser = _mapper.Map<LibraryUser>(userDto);
-                await _userService.Insert(libraryUser);
-                return Ok(userDto);
+                LibraryUser libraryUser = _mapper.Map<LibraryUser>(libraryUserDto);
+                await _libraryUserService.Insert(libraryUser);
+                return Ok(libraryUserDto);
             }
             catch (Exception)
             {
@@ -64,6 +65,54 @@ namespace VL_DataManager.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> JsonPatchWithModelStateAsync(Guid id,[FromBody] JsonPatchDocument<UserDto> libraryUserDto)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                LibraryUser libraryUser = _mapper.Map<LibraryUser>(libraryUserDto);
+                LibraryUser updatedEmployee = await _libraryUserService.PartialUpdate(id, libraryUser);
+                return Ok(userDto);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error inserting data on the database");
+            }
+
+            var updatedEmployee = await _libraryUserService.PartialUpdate(id, libraryUser);
+            if (updatedEmployee == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedEmployee);
+
+            if (patchDoc != null)
+            {
+                var customer = CreateCustomer();
+
+                patchDoc.ApplyTo(customer, ModelState);
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                return new ObjectResult(customer);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         // DELETE api/<UserController>/5

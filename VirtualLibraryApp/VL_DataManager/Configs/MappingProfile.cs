@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using VL_DataAccess.Models;
 using VL_DataManager.Dtos;
 
@@ -10,6 +11,7 @@ namespace VL_DataManager.Configs
         {
             CreateMap<LibraryUser, UserDto>();
             CreateMap<UserDto, LibraryUser>();
+
 
         }
     }

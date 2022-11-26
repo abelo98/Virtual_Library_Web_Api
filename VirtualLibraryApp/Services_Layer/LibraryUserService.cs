@@ -1,4 +1,5 @@
-﻿using Repository_Layer;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Repository_Layer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ using VL_DataAccess.Models;
 
 namespace Services_Layer
 {
-    public class UserService : IUserService
+    public class LibraryUserService : ILibraryUserService
     {
         readonly IRepository<LibraryUser> _repository;
-        public UserService(IRepository<LibraryUser> repository)
+        public LibraryUserService(IRepository<LibraryUser> repository)
         {
             _repository = repository;
         }
@@ -40,5 +41,16 @@ namespace Services_Layer
         {
             await _repository.Insert(user);
         }
+
+        public async Task<LibraryUser> PartialUpdate(Guid id, JsonPatchDocument<LibraryUser> libraryUser)
+        {
+            var libraryUserQuery = await Get(id);
+
+            libraryUser.ApplyTo(libraryUserQuery);
+            await _repository.SaveChanges();
+
+            return libraryUserQuery;
+        }
+
     }
 }

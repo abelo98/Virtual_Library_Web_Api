@@ -21,7 +21,7 @@ builder.Services.AddDbContext<VLContext>(options =>
 
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILibraryUserService, LibraryUserService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookReviewService, BookReviewService>();
