@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Repository_Layer;
+using Services_Layer;
 using VL_DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,15 @@ builder.Services.AddDbContext<VLContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookReviewService, BookReviewService>();
+
+
+
 
 var app = builder.Build();
 
