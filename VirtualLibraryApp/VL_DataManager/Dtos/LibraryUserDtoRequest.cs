@@ -2,7 +2,7 @@
 
 namespace VL_DataManager.Dtos
 {
-    public class LibraryUserDto
+    public class LibraryUserDtoRequest
     {
         [Required]
         public Guid Id { get; set; }

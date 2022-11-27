@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace VL_DataAccess.Models
         public string Nationality { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [Column(TypeName =("date"))]
         public DateTime BirthDate { get; set; }
 
         #region Navigation props

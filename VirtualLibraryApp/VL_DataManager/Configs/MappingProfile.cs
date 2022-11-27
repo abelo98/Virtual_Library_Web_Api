@@ -10,10 +10,16 @@ namespace VL_DataManager.Configs
     {
         public MappingProfile()
         {
-            CreateMap<LibraryUser, LibraryUserDto>();
-            CreateMap<LibraryUserDto, LibraryUser>();
-            CreateMap<JsonPatchDocument<LibraryUserDto>, JsonPatchDocument<LibraryUser>>();
-            CreateMap<Operation<LibraryUserDto>, Operation<LibraryUser>>();
+            CreateMap<LibraryUserDtoRequest, LibraryUser>();
+            CreateMap<LibraryUser, LibraryUserDtoResponse>();
+
+
+            CreateMap<Author,AuthorDtoResponse>();
+            CreateMap<AuthorDtoRequest, Author>();
+
+
+            CreateMap<JsonPatchDocument<LibraryUserDtoRequest>, JsonPatchDocument<LibraryUser>>();
+            CreateMap<Operation<LibraryUserDtoRequest>, Operation<LibraryUser>>();
         }
     }
 }
