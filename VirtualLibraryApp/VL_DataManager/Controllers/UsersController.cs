@@ -30,7 +30,7 @@ namespace VL_DataManager.Controllers
         }
 
         // GET api/<UserController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{userId}")]
         public string Get(int id)
         {
             return "value";
@@ -62,13 +62,13 @@ namespace VL_DataManager.Controllers
         }
 
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{userId}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> JsonPatchWithModelStateAsync(Guid id,[FromBody] JsonPatchDocument<LibraryUserDto> libraryUserDto)
+        [HttpPatch("{userId}")]
+        public async Task<IActionResult> Patch(Guid id,[FromBody] JsonPatchDocument<LibraryUserDto> libraryUserDto)
         {
 
             if (!ModelState.IsValid)
@@ -93,7 +93,7 @@ namespace VL_DataManager.Controllers
         }
 
         // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             try
