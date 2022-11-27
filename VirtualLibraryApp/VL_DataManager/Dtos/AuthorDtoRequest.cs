@@ -2,11 +2,8 @@
 
 namespace VL_DataManager.Dtos
 {
-    public class AuthorDto
+    public class AuthorDtoRequest
     {
-        [Required]
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }

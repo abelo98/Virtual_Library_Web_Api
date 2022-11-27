@@ -48,13 +48,15 @@ namespace Repository_Layer
             return await query.ToListAsync();
         }
 
-        public async Task Insert(TEntity entity)
+        public async Task<TEntity> Insert(TEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("null entity");
 
-            await _context.Set<TEntity>().AddAsync(entity);
+            var output = await _context.Set<TEntity>().AddAsync(entity);
+
             await SaveChanges();
+            return output.Entity;
         }
 
 

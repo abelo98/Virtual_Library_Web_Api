@@ -38,7 +38,7 @@ namespace VL_DataManager.Controllers
 
         // POST api/<AuthorController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AuthorDto authorDto)
+        public async Task<IActionResult> Post([FromBody] AuthorDtoRequest authorDto)
         {
             if (!ModelState.IsValid)
             {
