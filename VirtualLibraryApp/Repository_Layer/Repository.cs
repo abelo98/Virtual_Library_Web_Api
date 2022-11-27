@@ -27,14 +27,15 @@ namespace Repository_Layer
             await SaveChanges();
         }
 
-        public async Task<TEntity> Find(params object[]keys)
+        public async Task<TEntity> Find(params object[] keys)
         {
             return await _context.Set<TEntity>().FindAsync(keys);
 
         }
 
 
-        public async Task<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null,
+        public async Task<IEnumerable<TEntity>> GetAll(int offset = 0, int limit = 50,
+            Expression<Func<TEntity, bool>> filter = null,
             params Expression<Func<TEntity, object>>[] joinedEntities)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>();
@@ -45,7 +46,7 @@ namespace Repository_Layer
             if (joinedEntities != null)
                 query = joinedEntities.Aggregate(query, (current, joinedEntity) => current.Include(joinedEntity));
 
-            return await query.ToListAsync();
+            return await query.Skip(offset).Take(limit).ToListAsync();
         }
 
         public async Task<TEntity> Insert(TEntity entity)

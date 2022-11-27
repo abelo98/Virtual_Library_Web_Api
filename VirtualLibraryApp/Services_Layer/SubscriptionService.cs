@@ -9,7 +9,7 @@ using VL_DataAccess.Models;
 
 namespace Services_Layer
 {
-    public class SubscriptionService:ISubscriptionService
+    public class SubscriptionService : ISubscriptionService
     {
         readonly IRepository<Subscription> _repository;
         public SubscriptionService(IRepository<Subscription> repository)
@@ -17,11 +17,11 @@ namespace Services_Layer
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Subscription>> GetAll(Expression<Func<Subscription, bool>> filter = null,
-           params Expression<Func<Subscription, object>>[] joinedEntities)
-        {
-            return await _repository.GetAll(filter, joinedEntities);
-        }
+        //public async Task<IEnumerable<Subscription>> GetAll(Expression<Func<Subscription, bool>> filter = null,
+        //   params Expression<Func<Subscription, object>>[] joinedEntities)
+        //{
+        //    return await _repository.GetAll(filter, joinedEntities);
+        //}
 
         public async Task<Subscription> Get(Guid id) => await _repository.Find(id);
 

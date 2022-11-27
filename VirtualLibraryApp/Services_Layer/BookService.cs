@@ -17,10 +17,10 @@ namespace Services_Layer
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Book>> GetAll(Expression<Func<Book, bool>> filter = null,
+        public async Task<IEnumerable<Book>> GetAll(int offset = 0, int limit = 50, Expression<Func<Book, bool>> filter = null,
            params Expression<Func<Book, object>>[] joinedEntities)
         {
-            return await _repository.GetAll(filter, joinedEntities);
+            return await _repository.GetAll(offset, limit, filter, joinedEntities);
         }
 
         public async Task<Book> Get(Guid id) => await _repository.Find(id);

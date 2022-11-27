@@ -17,10 +17,10 @@ namespace Services_Layer
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Author>> GetAll(Expression<Func<Author, bool>> filter = null,
+        public async Task<IEnumerable<Author>> GetAll(int offset = 0, int limit = 50, Expression<Func<Author, bool>> filter = null,
            params Expression<Func<Author, object>>[] joinedEntities)
         {
-            return await _repository.GetAll(filter, joinedEntities);
+            return await _repository.GetAll(offset, limit, filter, joinedEntities);
         }
 
         public async Task<Author> Get(Guid id) => await _repository.Find(id);
@@ -38,7 +38,7 @@ namespace Services_Layer
 
         public async Task<Author> Insert(Author author)
         {
-          return await _repository.Insert(author);
+            return await _repository.Insert(author);
         }
     }
 }

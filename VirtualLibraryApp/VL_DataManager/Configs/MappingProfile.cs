@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
+using Services_Layer.Models;
 using VL_DataAccess.Models;
 using VL_DataManager.Dtos;
 
@@ -12,6 +13,7 @@ namespace VL_DataManager.Configs
         {
             CreateMap<LibraryUserDtoRequest, LibraryUser>();
             CreateMap<LibraryUser, LibraryUserDtoResponse>();
+            CreateMap<AllUsers, AllUsersDto>();
 
             CreateMap<AuthorDtoRequest, Author>();
             CreateMap<Author, AuthorDtoResponse>();

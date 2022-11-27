@@ -19,9 +19,12 @@ namespace VL_DataAccess.Models
         [DataType(DataType.DateTime)]
         public DateTime RegisterDate { get; set; }
 
+
+
         #region Navigation props
-        ICollection<Subscription> SuscribedTo { get; set; }
-        ICollection<BookReview> BookReviews { get; set; }
+        public ICollection<Subscription> SuscribedTo { get; set; }
+
+        public ICollection<BookReview> BookReviews { get; set; }
         #endregion
 
     }
