@@ -46,7 +46,7 @@ namespace Repository_Layer
             if (joinedEntities != null)
                 query = joinedEntities.Aggregate(query, (current, joinedEntity) => current.Include(joinedEntity));
 
-            return await query.ToListAsync();
+            return await query.Skip(offset).Take(limit).ToListAsync();
         }
 
         public async Task<TEntity> Insert(TEntity entity)
