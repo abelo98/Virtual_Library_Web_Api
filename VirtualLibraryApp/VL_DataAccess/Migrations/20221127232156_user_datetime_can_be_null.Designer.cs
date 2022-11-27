@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VL_DataAccess;
 
@@ -11,9 +12,10 @@ using VL_DataAccess;
 namespace VL_DataAccess.Migrations
 {
     [DbContext(typeof(VLContext))]
-    partial class VLContextModelSnapshot : ModelSnapshot
+    [Migration("20221127232156_user_datetime_can_be_null")]
+    partial class user_datetime_can_be_null
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,7 +150,7 @@ namespace VL_DataAccess.Migrations
                     b.Property<string>("ProfilePictureUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RegisterDate")
+                    b.Property<DateTime?>("RegisterDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

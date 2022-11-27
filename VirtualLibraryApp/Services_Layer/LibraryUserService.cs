@@ -34,10 +34,10 @@ namespace Services_Layer
                 .Select(u => new { user = u, subscriptions = u.SuscribedTo.Count })
                 .ToListAsync();
 
-
+            output.Users = new List<LibraryUser>();
             foreach (var item in queryResult)
             {
-                output.Users.Append(item.user);
+                output.Users.Add(item.user);
                 output.TotalAuthors += item.subscriptions;
             }
 
@@ -72,6 +72,5 @@ namespace Services_Layer
 
             return libraryUserQuery;
         }
-
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VL_DataAccess;
 
@@ -11,9 +12,10 @@ using VL_DataAccess;
 namespace VL_DataAccess.Migrations
 {
     [DbContext(typeof(VLContext))]
-    partial class VLContextModelSnapshot : ModelSnapshot
+    [Migration("20221127232623_restoring_register_date_to_be_null")]
+    partial class restoring_register_date_to_be_null
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

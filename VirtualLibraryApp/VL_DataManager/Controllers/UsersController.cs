@@ -28,9 +28,11 @@ namespace VL_DataManager.Controllers
         }
         // GET: api/<UserController>
         [HttpGet]
-        public IEnumerable<string> Get(int offset = 0, int limit = 50)
+        public AllUsersDto Get(int offset = 0, int limit = 50)
         {
-            return new string[] { "value1", "value2" };
+            var queryResult = _libraryUserService.GetAll(offset, limit).Result;
+            var output = _mapper.Map<AllUsersDto>(queryResult);
+            return output;
         }
 
         // GET api/<UserController>/5
