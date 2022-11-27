@@ -37,10 +37,10 @@ namespace Services_Layer
             await _repository.Update(user);
         }
 
-        public async Task Insert(LibraryUser user)
+        public async Task<LibraryUser> Insert(LibraryUser user)
         {
             user.RegisterDate = DateTime.Now;
-            await _repository.Insert(user);
+            return await _repository.Insert(user);
         }
 
         public async Task<LibraryUser> PartialUpdate(Guid id, JsonPatchDocument<LibraryUser> libraryUser)

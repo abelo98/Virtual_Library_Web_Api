@@ -36,9 +36,9 @@ namespace Services_Layer
             await _repository.Update(author);
         }
 
-        public async Task Insert(Author author)
+        public async Task<Author> Insert(Author author)
         {
-           var r = await _repository.Insert(author);
+          return await _repository.Insert(author);
         }
     }
 }
