@@ -69,7 +69,7 @@ namespace VL_DataManager.Controllers
 
         // DELETE api/<AuthorController>/5
         [HttpDelete("{authorId}")]
-        public async Task<IActionResult> DeleteAsync(Guid authorId)
+        public async Task<IActionResult> Delete(Guid authorId)
         {
             try
             {
