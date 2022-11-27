@@ -26,6 +26,8 @@ builder.Services.AddScoped<ILibraryUserService, LibraryUserService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookReviewService, BookReviewService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
