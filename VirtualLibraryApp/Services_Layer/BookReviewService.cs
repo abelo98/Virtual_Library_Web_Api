@@ -11,8 +11,8 @@ namespace Services_Layer
 {
     public class BookReviewService : IBookReviewService
     {
-        readonly Repository<BookReview> _repository;
-        public BookReviewService(Repository<BookReview> repository)
+        readonly IRepository<BookReview> _repository;
+        public BookReviewService(IRepository<BookReview> repository)
         {
             _repository = repository;
         }

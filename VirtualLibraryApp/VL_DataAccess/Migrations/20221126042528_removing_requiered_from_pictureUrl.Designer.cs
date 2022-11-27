@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VL_DataAccess;
 
@@ -11,9 +12,10 @@ using VL_DataAccess;
 namespace VL_DataAccess.Migrations
 {
     [DbContext(typeof(VLContext))]
-    partial class VLContextModelSnapshot : ModelSnapshot
+    [Migration("20221126042528_removing_requiered_from_pictureUrl")]
+    partial class removing_requiered_from_pictureUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +127,7 @@ namespace VL_DataAccess.Migrations
                     b.ToTable("BookReviews");
                 });
 
-            modelBuilder.Entity("VL_DataAccess.Models.LibraryUser", b =>
+            modelBuilder.Entity("VL_DataAccess.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,21 +150,6 @@ namespace VL_DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("VL_DataAccess.Models.Subscription", b =>
-                {
-                    b.Property<Guid>("LibraryUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("LibraryUserId", "AuthorId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("Subscriptions");
-                });
-
             modelBuilder.Entity("VL_DataAccess.Models.Book", b =>
                 {
                     b.HasOne("VL_DataAccess.Models.Author", "Author")
@@ -183,25 +170,6 @@ namespace VL_DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("VL_DataAccess.Models.Subscription", b =>
-                {
-                    b.HasOne("VL_DataAccess.Models.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VL_DataAccess.Models.LibraryUser", "LibraryUser")
-                        .WithMany()
-                        .HasForeignKey("LibraryUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("LibraryUser");
                 });
 
             modelBuilder.Entity("VL_DataAccess.Models.Book", b =>

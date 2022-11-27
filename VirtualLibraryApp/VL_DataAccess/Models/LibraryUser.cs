@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace VL_DataAccess.Models
 {
-    public class User : BaseUser
+    public class LibraryUser : BaseUser
     {
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
         [DataType(DataType.ImageUrl)]
-        public string ProfilePictureUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
 
         #region Navigation props
-        ICollection<Author> SuscribedTo { get; set; }
+        ICollection<Subscription> SuscribedTo { get; set; }
         ICollection<BookReview> BookReviews { get; set; }
         #endregion
 
