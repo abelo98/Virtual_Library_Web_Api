@@ -12,6 +12,8 @@ namespace VL_DataManager.Configs
         {
             CreateMap<LibraryUser, LibraryUserDto>();
             CreateMap<LibraryUserDto, LibraryUser>();
+            CreateMap<Author,AuthorDto>();
+            CreateMap<AuthorDto, Author>();
             CreateMap<JsonPatchDocument<LibraryUserDto>, JsonPatchDocument<LibraryUser>>();
             CreateMap<Operation<LibraryUserDto>, Operation<LibraryUser>>();
         }
