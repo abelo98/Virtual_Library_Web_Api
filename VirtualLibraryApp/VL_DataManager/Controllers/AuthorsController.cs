@@ -48,8 +48,8 @@ namespace VL_DataManager.Controllers
             try
             {
                 Author author = _mapper.Map<Author>(authorDto);
-                await _authorService.Insert(author);
-                return Ok(authorDto);
+                var result = await _authorService.Insert(author);
+                return Ok(_mapper.Map<AuthorDtoResponse>(result));
             }
             catch (Exception)
             {
