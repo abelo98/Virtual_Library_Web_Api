@@ -38,7 +38,7 @@ namespace VL_DataManager.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UserDto libraryUserDto)
+        public async Task<IActionResult> Post([FromBody] LibraryUserDto libraryUserDto)
         {
             if (!ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace VL_DataManager.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> JsonPatchWithModelStateAsync(Guid id,[FromBody] JsonPatchDocument<UserDto> libraryUserDto)
+        public async Task<IActionResult> JsonPatchWithModelStateAsync(Guid id,[FromBody] JsonPatchDocument<LibraryUserDto> libraryUserDto)
         {
 
             if (!ModelState.IsValid)
@@ -80,7 +80,7 @@ namespace VL_DataManager.Controllers
             {
                 var libraryUser = _mapper.Map<JsonPatchDocument<LibraryUser>>(libraryUserDto);
                 LibraryUser updatedEmployee = await _libraryUserService.PartialUpdate(id, libraryUser);
-                var response = _mapper.Map<UserDto>(updatedEmployee);
+                var response = _mapper.Map<LibraryUserDto>(updatedEmployee);
 
                 return Ok(response);
             }
@@ -94,8 +94,19 @@ namespace VL_DataManager.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
+            try
+            {
+                await _libraryUserService.Delete(id);
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error deleting data from the database");
+            }
         }
     }
 }

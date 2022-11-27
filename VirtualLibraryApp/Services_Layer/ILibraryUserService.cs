@@ -12,5 +12,6 @@ namespace Services_Layer
         Task Insert(LibraryUser user);
         Task Update(LibraryUser user);
         Task<LibraryUser> PartialUpdate(Guid id, JsonPatchDocument<LibraryUser> libraryUser);
+
     }
 }

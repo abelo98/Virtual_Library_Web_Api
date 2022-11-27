@@ -17,7 +17,7 @@ namespace VL_DataAccess.Models
         public string? ProfilePictureUrl { get; set; }
 
         #region Navigation props
-        ICollection<Author> SuscribedTo { get; set; }
+        ICollection<Subscription> SuscribedTo { get; set; }
         ICollection<BookReview> BookReviews { get; set; }
         #endregion
 
