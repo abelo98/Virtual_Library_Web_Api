@@ -14,12 +14,16 @@ namespace VL_DataManager.Controllers
     public class UsersController : ControllerBase
     {
         readonly ILibraryUserService _libraryUserService;
+        readonly ISubscriptionService _subscriptionService;
+
         readonly IMapper _mapper;
 
 
-        public UsersController(ILibraryUserService libraryUserService , IMapper mapper)
+        public UsersController(ILibraryUserService libraryUserService ,ISubscriptionService subscriptionService,
+            IMapper mapper)
         {
             _libraryUserService = libraryUserService;
+            _subscriptionService = subscriptionService;
             _mapper = mapper;
         }
         // GET: api/<UserController>
@@ -107,6 +111,26 @@ namespace VL_DataManager.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                         "Error deleting data from the database");
             }
+        }
+
+        [HttpPost("{userId}/subscribe-to-author/{authorId}")]
+        public async Task<IActionResult> SubscribeToAuthor(Guid userId, Guid authorId)
+        {
+
+            try
+            {
+                Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };    
+                await _subscriptionService.Insert(subscription);
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error inserting data on the database");
+            }
+
+
         }
     }
 }

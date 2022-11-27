@@ -9,7 +9,7 @@ using VL_DataAccess.Models;
 
 namespace Services_Layer
 {
-    public class SubscriptionService : ISubscriptionService
+    public class SubscriptionService:ISubscriptionService
     {
         readonly IRepository<Subscription> _repository;
         public SubscriptionService(IRepository<Subscription> repository)
