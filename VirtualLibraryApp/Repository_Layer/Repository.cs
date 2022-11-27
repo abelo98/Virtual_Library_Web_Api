@@ -27,9 +27,9 @@ namespace Repository_Layer
             await SaveChanges();
         }
 
-        public async Task<TEntity> Find(Guid id)
+        public async Task<TEntity> Find(object[]keys)
         {
-            return await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Set<TEntity>().FindAsync(keys);
 
         }
 

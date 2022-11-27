@@ -25,7 +25,7 @@ namespace Services_Layer
 
         public async Task<Subscription> Get(Guid id) => await _repository.Find(id);
 
-        public async Task Delete(Guid id)
+        public async Task Delete(Guid userId, Guid AuthorId)
         {
             Subscription subscription = await _repository.Find(id);
             await _repository.Delete(subscription);

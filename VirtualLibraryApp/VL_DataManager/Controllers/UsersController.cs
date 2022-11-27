@@ -132,5 +132,24 @@ namespace VL_DataManager.Controllers
 
 
         }
+
+        [HttpDelete("{userId}/subscribe-to-author/{authorId}")]
+        public async Task<IActionResult> DeleteSubscribeToAuthor(Guid userId, Guid authorId)
+        {
+
+            try
+            {
+                await _subscriptionService.Delete(userId, authorId);
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error inserting data on the database");
+            }
+
+
+        }
     }
 }
