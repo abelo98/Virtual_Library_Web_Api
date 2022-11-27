@@ -39,6 +39,7 @@ namespace Services_Layer
 
         public async Task Insert(LibraryUser user)
         {
+            user.RegisterDate = DateTime.Now;
             await _repository.Insert(user);
         }
 
