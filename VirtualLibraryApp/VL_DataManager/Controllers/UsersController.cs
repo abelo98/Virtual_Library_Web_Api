@@ -80,7 +80,7 @@ namespace VL_DataManager.Controllers
             {
                 var libraryUser = _mapper.Map<JsonPatchDocument<LibraryUser>>(libraryUserDto);
                 LibraryUser updatedEmployee = await _libraryUserService.PartialUpdate(id, libraryUser);
-                var response = _mapper.Map<JsonPatchDocument<UserDto>>(updatedEmployee);
+                var response = _mapper.Map<UserDto>(updatedEmployee);
 
                 return Ok(response);
             }
