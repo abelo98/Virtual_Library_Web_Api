@@ -6,17 +6,15 @@ using VL_DataManager.Dtos;
 
 namespace VL_DataManager.Configs
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             CreateMap<LibraryUserDtoRequest, LibraryUser>();
             CreateMap<LibraryUser, LibraryUserDtoResponse>();
 
-
-            CreateMap<Author,AuthorDtoResponse>();
             CreateMap<AuthorDtoRequest, Author>();
-
+            CreateMap<Author, AuthorDtoResponse>();
 
             CreateMap<JsonPatchDocument<LibraryUserDtoRequest>, JsonPatchDocument<LibraryUser>>();
             CreateMap<Operation<LibraryUserDtoRequest>, Operation<LibraryUser>>();

@@ -19,7 +19,7 @@ namespace VL_DataManager.Controllers
         readonly IMapper _mapper;
 
 
-        public UsersController(ILibraryUserService libraryUserService ,ISubscriptionService subscriptionService,
+        public UsersController(ILibraryUserService libraryUserService, ISubscriptionService subscriptionService,
             IMapper mapper)
         {
             _libraryUserService = libraryUserService;
@@ -52,7 +52,7 @@ namespace VL_DataManager.Controllers
             try
             {
                 LibraryUser libraryUser = _mapper.Map<LibraryUser>(libraryUserDto);
-                var result =  await _libraryUserService.Insert(libraryUser);
+                var result = await _libraryUserService.Insert(libraryUser);
                 return Ok(_mapper.Map<LibraryUserDtoResponse>(result));
             }
             catch (Exception)
@@ -62,7 +62,7 @@ namespace VL_DataManager.Controllers
                         "Error inserting data on the database");
             }
 
-           
+
         }
 
         // PUT api/<UserController>/5
@@ -72,7 +72,7 @@ namespace VL_DataManager.Controllers
         }
 
         [HttpPatch("{userId}")]
-        public async Task<IActionResult> Patch(Guid id,[FromBody] JsonPatchDocument<LibraryUserDtoRequest> libraryUserDto)
+        public async Task<IActionResult> Patch(Guid id, [FromBody] JsonPatchDocument<LibraryUserDtoRequest> libraryUserDto)
         {
 
             if (!ModelState.IsValid)
@@ -98,7 +98,7 @@ namespace VL_DataManager.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{userId}")]
-        public async Task<IActionResult> DeleteAsync(Guid userId)
+        public async Task<IActionResult> Delete(Guid userId)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace VL_DataManager.Controllers
 
             try
             {
-                Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };    
+                Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };
                 await _subscriptionService.Insert(subscription);
                 return Ok();
             }
