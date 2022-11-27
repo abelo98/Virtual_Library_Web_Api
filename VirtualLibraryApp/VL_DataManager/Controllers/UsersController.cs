@@ -28,7 +28,7 @@ namespace VL_DataManager.Controllers
         }
         // GET: api/<UserController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<string> Get(int offset = 0, int limit = 50)
         {
             return new string[] { "value1", "value2" };
         }
