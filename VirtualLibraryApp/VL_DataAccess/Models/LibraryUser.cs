@@ -16,6 +16,9 @@ namespace VL_DataAccess.Models
         [DataType(DataType.ImageUrl)]
         public string? ProfilePictureUrl { get; set; }
 
+        [DataType(DataType.DateTime)]
+        public DateTime RegisterDate { get; set; }
+
         #region Navigation props
         ICollection<Subscription> SuscribedTo { get; set; }
         ICollection<BookReview> BookReviews { get; set; }

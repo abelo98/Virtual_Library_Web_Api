@@ -30,8 +30,8 @@ namespace VL_DataManager.Controllers
         }
 
         // GET api/<AuthorController>/5
-        [HttpGet("{userId}")]
-        public string Get(Guid userId)
+        [HttpGet("{authorId}")]
+        public string Get(Guid authorId)
         {
             return "value";
         }
@@ -62,43 +62,18 @@ namespace VL_DataManager.Controllers
         }
 
         // PUT api/<AuthorController>/5
-        [HttpPut("{userId}")]
+        [HttpPut("{authorId}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        [HttpPatch("{userId}")]
-        public async Task<IActionResult> Patch(Guid id, [FromBody] JsonPatchDocument<AuthorDto> authorDto)
-        {
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            try
-            {
-                var author = _mapper.Map<JsonPatchDocument<Author>>(authorDto);
-                Author updatedEmployee = await _authorService.PartialUpdate(id, author);
-                var response = _mapper.Map<AuthorDto>(updatedEmployee);
-
-                return Ok(response);
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                        "Error inserting data on the database");
-            }
-        }
-
         // DELETE api/<AuthorController>/5
-        [HttpDelete("{userId}")]
-        public async Task<IActionResult> DeleteAsync(Guid userId)
+        [HttpDelete("{authorId}")]
+        public async Task<IActionResult> DeleteAsync(Guid authorId)
         {
             try
             {
-                await _authorService.Delete(userId);
+                await _authorService.Delete(authorId);
                 return Ok();
             }
             catch (Exception)
