@@ -16,7 +16,7 @@ namespace VL_DataManager.Dtos
         public string Nationality { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
     }
 }
