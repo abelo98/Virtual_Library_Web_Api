@@ -27,7 +27,7 @@ namespace Services_Layer
 
         public async Task Delete(Guid userId, Guid AuthorId)
         {
-            Subscription subscription = await _repository.Find(id);
+            Subscription subscription = await _repository.Find(userId, AuthorId);
             await _repository.Delete(subscription);
         }
 

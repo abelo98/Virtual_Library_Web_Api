@@ -35,7 +35,7 @@ namespace VL_DataManager.Controllers
 
         // GET api/<UserController>/5
         [HttpGet("{userId}")]
-        public string Get(int id)
+        public string Get(Guid userId)
         {
             return "value";
         }
@@ -98,11 +98,11 @@ namespace VL_DataManager.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{userId}")]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync(Guid userId)
         {
             try
             {
-                await _libraryUserService.Delete(id);
+                await _libraryUserService.Delete(userId);
                 return Ok();
             }
             catch (Exception)

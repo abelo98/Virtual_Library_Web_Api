@@ -27,7 +27,7 @@ namespace Repository_Layer
             await SaveChanges();
         }
 
-        public async Task<TEntity> Find(object[]keys)
+        public async Task<TEntity> Find(params object[]keys)
         {
             return await _context.Set<TEntity>().FindAsync(keys);
 

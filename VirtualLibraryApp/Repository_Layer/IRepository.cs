@@ -6,7 +6,7 @@ namespace Repository_Layer
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         Task Delete(TEntity entity);
-        Task<TEntity> Find(Guid id);
+        Task<TEntity> Find(params object[] keys);
         Task<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] joinedEntities);
         Task Insert(TEntity entity);
         Task SaveChanges();
