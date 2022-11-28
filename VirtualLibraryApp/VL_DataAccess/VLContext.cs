@@ -24,6 +24,9 @@ namespace VL_DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Book>().HasKey(b => b.ISBN);
+            modelBuilder.Entity<Book>().Ignore(b => b.Id);
+
             modelBuilder.Entity<BookReview>()
                 .Property(br => br.Rate)
                 .HasConversion<int>();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VL_DataAccess;
 
@@ -11,9 +12,10 @@ using VL_DataAccess;
 namespace VL_DataAccess.Migrations
 {
     [DbContext(typeof(VLContext))]
-    partial class VLContextModelSnapshot : ModelSnapshot
+    [Migration("20221128084221_changes_type_in_rate")]
+    partial class changes_type_in_rate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,12 @@ namespace VL_DataAccess.Migrations
 
             modelBuilder.Entity("VL_DataAccess.Models.Book", b =>
                 {
-                    b.Property<string>("ISBN")
-                        .HasMaxLength(13)
-                        .HasColumnType("varchar(13)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("AverageRate")
-                        .HasColumnType("float");
 
                     b.Property<string>("DowloadUrl")
                         .IsRequired()
@@ -67,18 +66,26 @@ namespace VL_DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
+
                     b.Property<int>("Pages")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PublishingDate")
                         .HasColumnType("date");
 
+                    b.Property<double>("Rate")
+                        .HasColumnType("float");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("ISBN");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -91,9 +98,8 @@ namespace VL_DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BookId")
-                        .IsRequired()
-                        .HasColumnType("varchar(13)");
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("LibraryUserId")
                         .HasColumnType("uniqueidentifier");
@@ -107,6 +113,9 @@ namespace VL_DataAccess.Migrations
 
                     b.Property<int>("Rate")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

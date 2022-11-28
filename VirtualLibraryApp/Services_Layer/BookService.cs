@@ -14,11 +14,10 @@ namespace Services_Layer
 {
     public class BookService : IBookService
     {
-        readonly IRepository<Book> _repository;
         readonly VLContext _dbContext;
-        public BookService(IRepository<Book> repository,VLContext dbContext)
+        public BookService(VLContext dbContext)
         {
-            _repository = repository;
+
             _dbContext= dbContext;
         }
 
@@ -39,17 +38,19 @@ namespace Services_Layer
                 .ToListAsync();
         }
 
-        public async Task<Book> Get(Guid id) => await _repository.Find(id);
+
+        public async Task<Book> Get(Guid id) => throw new NotImplementedException();
+
 
         public async Task Delete(Guid id)
         {
-            Book book = await _repository.Find(id);
-            await _repository.Delete(book);
+            throw new NotImplementedException();
+
         }
 
         public async Task Update(Book book)
         {
-            await _repository.Update(book);
+            throw new NotImplementedException();
         }
 
         public async Task<Book> Insert(Guid authorId,Book book)
@@ -84,8 +85,8 @@ namespace Services_Layer
             if (filter?.Sort != null)
             {
                 if (filter.Sort.HasValue)
-                { queriable = queriable.OrderBy(x => x.Rate); }
-                else { queriable = queriable.OrderByDescending(x => x.Rate); }
+                { queriable = queriable.OrderBy(x => x.AverageRate); }
+                else { queriable = queriable.OrderByDescending(x => x.AverageRate); }
             }
 
             return queriable;

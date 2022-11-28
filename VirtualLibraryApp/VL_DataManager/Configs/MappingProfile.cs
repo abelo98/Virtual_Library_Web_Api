@@ -22,6 +22,11 @@ namespace VL_DataManager.Configs
             CreateMap<Book, BookDtoResponse>();
             CreateMap<Book, BookAuthorDetailsDto>();
 
+            CreateMap<BookReviewDtoRequest, BookReview>();
+            CreateMap<BookReview, BookReviewDtoResponse>();
+
+            CreateMap<GetAllReviewsQueryFilter, GetAllReviewsFilter>();
+
 
             CreateMap<GetAllBooksQueryFilter, GetAllBooksFilter>();
             CreateMap<BookServiceModel, BookDtoResponse>();

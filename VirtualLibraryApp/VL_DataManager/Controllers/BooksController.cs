@@ -16,11 +16,15 @@ namespace VL_DataManager.Controllers
     {
         // GET: api/<BooksController>
         readonly IBookService _bookService;
+        readonly IBookReviewService _bookReviewService;
+
         readonly IMapper _mapper;
 
-        public BooksController(IBookService bookService, IMapper mapper)
+        public BooksController(IBookService bookService, IBookReviewService bookReviewService,
+            IMapper mapper)
         {
             _bookService = bookService;
+            _bookReviewService = bookReviewService;
             _mapper = mapper;
         }
 
@@ -35,19 +39,16 @@ namespace VL_DataManager.Controllers
 
         }
 
-        // GET api/<BookController>/5
-        [HttpGet("{bookId}")]
-        public string Get(Guid bookId)
+        [HttpGet("{bookId}/reviews")]
+        public async Task<IActionResult> GetReviews(string bookId, [FromQuery] GetAllReviewsQueryFilter queryFilter ,int offset = 0, int limit = 50)
         {
-            return "value";
-        }
-        
+            var filter = _mapper.Map<GetAllReviewsFilter>(queryFilter);
+            var result = await _bookReviewService.GetAll(filter,bookId, offset, limit);
+            var output = _mapper.Map<IEnumerable<BookReviewDtoResponse>>(result);
+            return Ok(output);
 
-        // PUT api/<BookController>/5
-        [HttpPut("{bookId}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
+
 
         // DELETE api/<BookController>/5
         [HttpDelete("{bookId}")]
@@ -64,6 +65,32 @@ namespace VL_DataManager.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                         "Error deleting data from the database");
             }
+        }
+
+        [HttpPost("{bookId}/reviews/from/users/{userId}")]
+        public async Task<IActionResult> Post(string bookId, Guid userId,[FromBody] BookReviewDtoRequest bookReviewDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+
+
+            }
+
+            try
+            {
+                BookReview bookReview = _mapper.Map<BookReview>(bookReviewDto);
+                var result = await _bookReviewService.Insert(bookId, userId, bookReview);
+                return Ok(_mapper.Map<BookReviewDtoResponse>(result));
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error inserting data on the database");
+            }
+
+
         }
     }
 }

@@ -37,7 +37,7 @@ namespace VL_DataAccess.Models
 
         [Required]
         [Range(0, 5)]
-        public int Rate { get; set; }
+        public double AverageRate { get; set; }
 
         #region Navigation props
         public Guid AuthorId { get; set; }

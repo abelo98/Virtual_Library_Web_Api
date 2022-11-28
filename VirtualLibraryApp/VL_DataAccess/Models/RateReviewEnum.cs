@@ -8,10 +8,10 @@ namespace VL_DataAccess.Models
 {
     public enum RateReview
     {
-        VeryLow,
-        low,
-        Medium,
-        High,
-        VeryHigh
+        VeryLow = 1, 
+        low=2,
+        Medium=3,
+        High=4,
+        VeryHigh=5
     }
 }
