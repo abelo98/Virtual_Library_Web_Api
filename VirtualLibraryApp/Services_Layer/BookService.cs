@@ -55,8 +55,8 @@ namespace Services_Layer
         public async Task<Book> Insert(Guid authorId,Book book)
         {
             book.AuthorId = authorId;
-            var result = _context.Books.Add(book).Entity;
-            await _context.SaveChangesAsync();
+            var result = _dbContext.Books.Add(book).Entity;
+            await _dbContext.SaveChangesAsync();
             return result;
         }
 

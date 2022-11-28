@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Services_Layer;
+using Services_Layer.Models;
+using System.Collections;
 using VL_DataAccess.Models;
 using VL_DataManager.Dtos;
 
@@ -24,9 +26,13 @@ namespace VL_DataManager.Controllers
 
         // GET: api/<BookController>
         [HttpGet]
-        public IEnumerable<string> Get([FromQuery] GetAllBooksQueryFilter queryFilter)
+        public async Task<IActionResult> Get([FromQuery] GetAllBooksQueryFilter queryFilter,int offset = 0, int limit = 50)
         {
-            return new string[] { "value1", "value2" };
+            var filter = _mapper.Map<GetAllBooksFilter>(queryFilter);
+            var result = await _bookService.GetAll(filter,offset,limit);
+            var output = _mapper.Map<IEnumerable<BookDtoResponse>>(result);
+            return Ok(output);
+
         }
 
         // GET api/<BookController>/5
