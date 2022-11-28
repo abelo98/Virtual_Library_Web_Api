@@ -17,17 +17,13 @@ namespace VL_DataAccess.Models
 
         [Required]
         [MaxLength(100)]
-        public string AuthorName { get; set; }
-
-        [Required]
-        [MaxLength(100)]
         public string EditorialName { get; set; }
 
         [Required]
         public int Pages { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = ("date"))]
         public DateTime PublishingDate { get; set; }
 
         [Required]

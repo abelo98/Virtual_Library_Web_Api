@@ -14,6 +14,6 @@ namespace VL_DataManager.Dtos
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
     }
 }
