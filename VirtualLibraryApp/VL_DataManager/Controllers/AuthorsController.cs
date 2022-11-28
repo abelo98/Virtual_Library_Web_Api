@@ -14,10 +14,12 @@ namespace VL_DataManager.Controllers
     public class AuthorsController : ControllerBase
     {
         readonly IAuthorService _authorService;
+        readonly IBookService _bookService;
         readonly IMapper _mapper;
 
-        public AuthorsController(IAuthorService authorService, IMapper mapper)
+        public AuthorsController(IAuthorService authorService,IBookService bookService, IMapper mapper)
         {
+            _bookService = bookService;
             _authorService = authorService;
             _mapper = mapper;
         }
@@ -82,6 +84,31 @@ namespace VL_DataManager.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                         "Error deleting data from the database");
             }
+        }
+
+        // POST api/<AuthorController>
+        [HttpPost("{authorId}/books")]
+        public async Task<IActionResult> Post(Guid authorId,[FromBody] BookDtoRequest bookDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                Book book = _mapper.Map<Book>(bookDto);
+                var result = await _bookService.Insert(authorId, book);
+                return Ok(_mapper.Map<BookDtoResponse>(result));
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error inserting data on the database");
+            }
+
+
         }
     }
 }

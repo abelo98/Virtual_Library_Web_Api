@@ -28,11 +28,11 @@ namespace VL_DataManager.Controllers
         }
         // GET: api/<UserController>
         [HttpGet]
-        public AllUsersDto Get(int offset = 0, int limit = 50)
+        public async Task<IActionResult> Get(int offset = 0, int limit = 50)
         {
-            var queryResult = _libraryUserService.GetAll(offset, limit).Result;
+            var queryResult = await _libraryUserService.GetAll(offset, limit);
             var output = _mapper.Map<AllUsersDto>(queryResult);
-            return output;
+            return Ok(output);
         }
 
         // GET api/<UserController>/5

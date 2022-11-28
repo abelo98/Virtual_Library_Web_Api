@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Services_Layer.Models;
+using System.Linq.Expressions;
 using VL_DataAccess.Models;
 
 namespace Services_Layer
@@ -7,8 +8,8 @@ namespace Services_Layer
     {
         Task Delete(Guid id);
         Task<Book> Get(Guid id);
-        Task<IEnumerable<Book>> GetAll(int offset = 0, int limit = 50, Expression<Func<Book, bool>> filter = null, params Expression<Func<Book, object>>[] joinedEntities);
-        Task Insert(Book book);
+        Task<IEnumerable<BookServiceModel>> GetAll(GetAllBooksFilter filter, int offset = 0, int limit = 50);
+        Task<Book> Insert(Guid authorId,Book book);
         Task Update(Book book);
     }
 }

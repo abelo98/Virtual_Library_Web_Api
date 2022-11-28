@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VL_DataAccess;
 
@@ -11,9 +12,10 @@ using VL_DataAccess;
 namespace VL_DataAccess.Migrations
 {
     [DbContext(typeof(VLContext))]
-    partial class VLContextModelSnapshot : ModelSnapshot
+    [Migration("20221128024104_changes_date_type_in_PublishingDate")]
+    partial class changes_date_type_in_PublishingDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +56,11 @@ namespace VL_DataAccess.Migrations
 
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("DowloadUrl")
                         .IsRequired()
@@ -169,7 +176,7 @@ namespace VL_DataAccess.Migrations
             modelBuilder.Entity("VL_DataAccess.Models.Book", b =>
                 {
                     b.HasOne("VL_DataAccess.Models.Author", "Author")
-                        .WithMany("Books")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -195,7 +202,7 @@ namespace VL_DataAccess.Migrations
             modelBuilder.Entity("VL_DataAccess.Models.Subscription", b =>
                 {
                     b.HasOne("VL_DataAccess.Models.Author", "Author")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -209,13 +216,6 @@ namespace VL_DataAccess.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("LibraryUser");
-                });
-
-            modelBuilder.Entity("VL_DataAccess.Models.Author", b =>
-                {
-                    b.Navigation("Books");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("VL_DataAccess.Models.Book", b =>

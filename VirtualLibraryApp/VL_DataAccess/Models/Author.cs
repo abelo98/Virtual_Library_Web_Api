@@ -19,8 +19,8 @@ namespace VL_DataAccess.Models
         public DateTime BirthDate { get; set; }
 
         #region Navigation props
-        ICollection<Book> Books { get; set; }
-        ICollection<Subscription> Users { get; set; }
+        public ICollection<Book> Books { get; set; }
+        public ICollection<Subscription> Users { get; set; }
         #endregion
     }
 }
