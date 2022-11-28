@@ -27,7 +27,7 @@ namespace VL_DataAccess.Models
         public int Pages { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = ("date"))]
         public DateTime PublishingDate { get; set; }
 
         [Required]
