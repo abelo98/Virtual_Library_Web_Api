@@ -18,6 +18,10 @@ namespace VL_DataManager.Configs
             CreateMap<AuthorDtoRequest, Author>();
             CreateMap<Author, AuthorDtoResponse>();
 
+            CreateMap<BookDtoRequest, Book>();
+            CreateMap<Book, BookDtoResponse>();
+
+
             CreateMap<JsonPatchDocument<LibraryUserDtoRequest>, JsonPatchDocument<LibraryUser>>();
             CreateMap<Operation<LibraryUserDtoRequest>, Operation<LibraryUser>>();
         }
