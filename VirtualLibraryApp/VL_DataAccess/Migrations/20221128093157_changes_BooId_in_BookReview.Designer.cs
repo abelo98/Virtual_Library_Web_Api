@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VL_DataAccess;
 
@@ -11,9 +12,10 @@ using VL_DataAccess;
 namespace VL_DataAccess.Migrations
 {
     [DbContext(typeof(VLContext))]
-    partial class VLContextModelSnapshot : ModelSnapshot
+    [Migration("20221128093157_changes_BooId_in_BookReview")]
+    partial class changes_BooId_in_BookReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,9 +50,9 @@ namespace VL_DataAccess.Migrations
 
             modelBuilder.Entity("VL_DataAccess.Models.Book", b =>
                 {
-                    b.Property<string>("ISBN")
-                        .HasMaxLength(13)
-                        .HasColumnType("varchar(13)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
@@ -67,6 +69,11 @@ namespace VL_DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
+
                     b.Property<int>("Pages")
                         .HasColumnType("int");
 
@@ -78,7 +85,7 @@ namespace VL_DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("ISBN");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -93,7 +100,10 @@ namespace VL_DataAccess.Migrations
 
                     b.Property<string>("BookId")
                         .IsRequired()
-                        .HasColumnType("varchar(13)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("BookId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("LibraryUserId")
                         .HasColumnType("uniqueidentifier");
@@ -108,9 +118,12 @@ namespace VL_DataAccess.Migrations
                     b.Property<int>("Rate")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
+                    b.HasIndex("BookId1");
 
                     b.HasIndex("LibraryUserId");
 
@@ -173,7 +186,7 @@ namespace VL_DataAccess.Migrations
                 {
                     b.HasOne("VL_DataAccess.Models.Book", "Book")
                         .WithMany("BookReviews")
-                        .HasForeignKey("BookId")
+                        .HasForeignKey("BookId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -8,7 +8,7 @@ namespace Services_Layer
         Task Delete(Guid id);
         Task<BookReview> Get(Guid id);
         Task<IEnumerable<BookReview>> GetAll(int offset = 0, int limit = 50, Expression<Func<BookReview, bool>> filter = null, params Expression<Func<BookReview, object>>[] joinedEntities);
-        Task<BookReview> Insert(BookReview bookReview);
+        Task<BookReview> Insert(string bookId, Guid userId,BookReview bookReview);
         Task Update(BookReview bookReview);
     }
 }

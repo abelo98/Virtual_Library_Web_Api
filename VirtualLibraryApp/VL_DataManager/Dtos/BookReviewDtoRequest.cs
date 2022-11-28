@@ -3,8 +3,9 @@ using VL_DataAccess.Models;
 
 namespace VL_DataManager.Dtos
 {
-    public class BookReviewDto
+    public class BookReviewDtoRequest
     {
+
         [MaxLength(500)]
         public string? Opinion { get; set; }
 

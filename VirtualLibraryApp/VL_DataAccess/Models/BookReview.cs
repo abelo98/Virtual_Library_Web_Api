@@ -21,13 +21,12 @@ namespace VL_DataAccess.Models
         public RateReview Rate { get; set; }
 
 
-
         #region Navigation props
 
-        public Guid BookId { get; set; }
+        public string BookId { get; set; }
         public Book Book { get; set; }
 
-        public Guid UserId { get; set; }
+        public Guid LibraryUserId { get; set; }
         public LibraryUser LibraryUser{ get; set; }
 
 
