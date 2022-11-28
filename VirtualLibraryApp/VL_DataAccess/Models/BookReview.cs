@@ -14,20 +14,22 @@ namespace VL_DataAccess.Models
         [DataType(DataType.DateTime)]
         public DateTime PostedDate { get; set; }
 
-        [Required]
         [MaxLength(500)]
         [Column(TypeName = "varchar(500)")]
         public string? Opinion { get; set; }
 
         public RateReview Rate { get; set; }
 
-        public Guid UserId { get; set; }
 
 
         #region Navigation props
 
         public Guid BookId { get; set; }
         public Book Book { get; set; }
+
+        public Guid UserId { get; set; }
+        public LibraryUser LibraryUser{ get; set; }
+
 
         #endregion
     }
