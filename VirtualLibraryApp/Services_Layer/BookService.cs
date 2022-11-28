@@ -22,7 +22,7 @@ namespace Services_Layer
             _dbContext= dbContext;
         }
 
-        public async Task<IEnumerable<Book>> GetAll(GetAllBooksFilter filter,int offset = 0, int limit = 50)
+        public async Task<IEnumerable<BookServiceModel>> GetAll(GetAllBooksFilter filter,int offset = 0, int limit = 50)
         {
             IQueryable<Book> queriable = _dbContext.Books;
             queriable = AddsFiltersOnQuery(queriable, filter);
@@ -30,8 +30,13 @@ namespace Services_Layer
             return await queriable
                 .Skip(offset)
                 .Take(limit)
+                .Include(b => b.Author)
+                .Select(b => new BookServiceModel { 
+                    AuthorName = b.Author.Name, 
+                    EditorialName = b.EditorialName,
+                    ISBN = b.ISBN,
+                    Title = b.Title})
                 .ToListAsync();
-
         }
 
         public async Task<Book> Get(Guid id) => await _repository.Find(id);

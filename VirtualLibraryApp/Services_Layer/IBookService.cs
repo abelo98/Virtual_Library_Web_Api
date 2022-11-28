@@ -8,7 +8,7 @@ namespace Services_Layer
     {
         Task Delete(Guid id);
         Task<Book> Get(Guid id);
-        Task<IEnumerable<Book>> GetAll(GetAllBooksFilter filter, int offset = 0, int limit = 50);
+        Task<IEnumerable<BookServiceModel>> GetAll(GetAllBooksFilter filter, int offset = 0, int limit = 50);
         Task<Book> Insert(Guid authorId,Book book);
         Task Update(Book book);
     }
