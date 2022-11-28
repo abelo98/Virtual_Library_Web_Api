@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository_Layer;
+using Services_Layer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,35 @@ namespace Services_Layer
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<BookReview>> GetAll(int offset = 0, int limit = 50, Expression<Func<BookReview, bool>> filter = null,
-           params Expression<Func<BookReview, object>>[] joinedEntities)
+        public async Task<IEnumerable<BookReview>> GetAll(GetAllReviewsFilter filter, string bookId,int offset = 0, int limit = 50)
         {
-            return await _repository.GetAll(offset, limit, filter, joinedEntities);
+            IQueryable<BookReview> queriable = _dbContext.BookReviews;
+            queriable = AddsFiltersOnQuery(queriable, filter, bookId);
+
+            return await queriable
+                .Skip(offset)
+                .Take(limit)
+                .ToListAsync();
+        }
+
+        private IQueryable<BookReview> AddsFiltersOnQuery(IQueryable<BookReview> queriable, GetAllReviewsFilter filter, string bookId)
+        {
+
+            queriable = queriable.Where(x => x.BookId == bookId);
+
+            if (filter?.ReviewType != null)
+            {
+                queriable = queriable.Where(x=>x.Rate==filter.ReviewType);
+            }
+
+            if (filter?.Sort != null)
+            {
+                if (filter.Sort.HasValue)
+                { queriable = queriable.OrderBy(x => x.PostedDate); }
+                else { queriable = queriable.OrderByDescending(x => x.PostedDate); }
+            }
+
+            return queriable;
         }
 
         public async Task<BookReview> Get(Guid id) => await _repository.Find(id);
@@ -45,7 +71,7 @@ namespace Services_Layer
         {
             bookReview.LibraryUserId = userId;
             bookReview.BookId = bookId;
-
+            bookReview.PostedDate = DateTime.Now;
 
             var book = await _dbContext.Books
                 .Where(x => x.ISBN == bookId)

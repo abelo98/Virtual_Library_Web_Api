@@ -25,6 +25,7 @@ namespace VL_DataManager.Configs
             CreateMap<BookReviewDtoRequest, BookReview>();
             CreateMap<BookReview, BookReviewDtoResponse>();
 
+            CreateMap<GetAllReviewsQueryFilter, GetAllReviewsFilter>();
 
 
             CreateMap<GetAllBooksQueryFilter, GetAllBooksFilter>();

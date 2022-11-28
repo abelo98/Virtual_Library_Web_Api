@@ -39,19 +39,16 @@ namespace VL_DataManager.Controllers
 
         }
 
-        // GET api/<BookController>/5
-        [HttpGet("{bookId}")]
-        public string Get(Guid bookId)
+        [HttpGet("{bookId}/reviews")]
+        public async Task<IActionResult> GetReviews(string bookId, [FromQuery] GetAllReviewsQueryFilter queryFilter ,int offset = 0, int limit = 50)
         {
-            return "value";
-        }
-        
+            var filter = _mapper.Map<GetAllReviewsFilter>(queryFilter);
+            var result = await _bookReviewService.GetAll(filter,bookId, offset, limit);
+            var output = _mapper.Map<IEnumerable<BookReviewDtoResponse>>(result);
+            return Ok(output);
 
-        // PUT api/<BookController>/5
-        [HttpPut("{bookId}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
+
 
         // DELETE api/<BookController>/5
         [HttpDelete("{bookId}")]
