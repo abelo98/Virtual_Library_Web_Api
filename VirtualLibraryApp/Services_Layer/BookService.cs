@@ -1,4 +1,6 @@
-﻿using Repository_Layer;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository_Layer;
+using Services_Layer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +15,23 @@ namespace Services_Layer
     public class BookService : IBookService
     {
         readonly IRepository<Book> _repository;
-        readonly VLContext _context;
-        public BookService(IRepository<Book> repository,VLContext context)
+        readonly VLContext _dbContext;
+        public BookService(IRepository<Book> repository,VLContext dbContext)
         {
             _repository = repository;
-            _context=context;
+            _dbContext= dbContext;
         }
 
-        public async Task<IEnumerable<Book>> GetAll(int offset = 0, int limit = 50, Expression<Func<Book, bool>> filter = null,
-           params Expression<Func<Book, object>>[] joinedEntities)
+        public async Task<IEnumerable<Book>> GetAll(GetAllBooksFilter filter,int offset = 0, int limit = 50)
         {
-            return await _repository.GetAll(offset, limit, filter, joinedEntities);
+            IQueryable<Book> queriable = _dbContext.Books;
+            queriable = AddsFiltersOnQuery(queriable, filter);
+
+            return await queriable
+                .Skip(offset)
+                .Take(limit)
+                .ToListAsync();
+
         }
 
         public async Task<Book> Get(Guid id) => await _repository.Find(id);
@@ -45,6 +53,37 @@ namespace Services_Layer
             var result = _context.Books.Add(book).Entity;
             await _context.SaveChangesAsync();
             return result;
+        }
+
+        private static IQueryable<Book> AddsFiltersOnQuery(IQueryable<Book> queriable, GetAllBooksFilter filter)
+        {
+            if (filter?.AuthorId != null)
+            {
+                queriable = queriable.Where(x => x.AuthorId==filter.AuthorId);
+            }
+
+            if (!string.IsNullOrEmpty(filter?.EditorialName))
+            {
+                queriable = queriable.Where(x => x.EditorialName == filter.EditorialName);
+            }
+            if (filter?.Before != null )
+            {
+                queriable = queriable.Where(x => x.PublishingDate < filter.Before);
+            }
+
+            if (filter?.After != null)
+            {
+                queriable = queriable.Where(x => x.PublishingDate < filter.After);
+            }
+
+            if (filter?.Sort != null)
+            {
+                if (filter.Sort.HasValue)
+                { queriable = queriable.OrderBy(x => x.Rate); }
+                else { queriable = queriable.OrderByDescending(x => x.Rate); }
+            }
+
+            return queriable;
         }
     }
 }

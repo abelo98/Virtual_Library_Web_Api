@@ -6,8 +6,8 @@
         public string? EditorialName { get; set; }
         public DateOnly? Before { get; set; }
         public DateOnly? After { get; set; }
-        public int Offset { get; set; }
-        public int Limit { get; set; } = 50;
+        //public int Offset { get; set; }
+        //public int Limit { get; set; } = 50;
         public bool? Sort { get; set; }
     }
 }
