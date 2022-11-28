@@ -17,10 +17,6 @@ namespace VL_DataAccess.Models
 
         [Required]
         [MaxLength(100)]
-        public string AuthorName { get; set; }
-
-        [Required]
-        [MaxLength(100)]
         public string EditorialName { get; set; }
 
         [Required]
