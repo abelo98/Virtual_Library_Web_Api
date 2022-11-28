@@ -21,6 +21,9 @@ namespace VL_DataManager.Configs
             CreateMap<BookDtoRequest, Book>();
             CreateMap<Book, BookDtoResponse>();
 
+            CreateMap<GetAllBooksQueryFilter, GetAllBooksFilter>();
+
+
 
             CreateMap<JsonPatchDocument<LibraryUserDtoRequest>, JsonPatchDocument<LibraryUser>>();
             CreateMap<Operation<LibraryUserDtoRequest>, Operation<LibraryUser>>();
