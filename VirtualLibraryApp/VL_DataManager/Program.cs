@@ -27,7 +27,7 @@ builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookReviewService, BookReviewService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 

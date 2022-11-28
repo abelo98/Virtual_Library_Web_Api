@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Protocols;
 using Repository_Layer;
 using Services_Layer.Models;
 using System;
@@ -15,10 +17,15 @@ namespace Services_Layer
     public class BookService : IBookService
     {
         readonly VLContext _dbContext;
-        public BookService(VLContext dbContext)
+        readonly IEmailSender _emailSender;
+        private IConfiguration _configuration;
+        public BookService(VLContext dbContext, IEmailSender emailSender, IConfiguration configuration)
         {
 
             _dbContext= dbContext;
+            _emailSender = emailSender;
+            _configuration = configuration;
+
         }
 
         public async Task<IEnumerable<BookServiceModel>> GetAll(GetAllBooksFilter filter,int offset = 0, int limit = 50)
@@ -58,6 +65,7 @@ namespace Services_Layer
             book.AuthorId = authorId;
             var result = _dbContext.Books.Add(book).Entity;
             await _dbContext.SaveChangesAsync();
+            await Notificate(authorId);
             return result;
         }
 
@@ -90,6 +98,22 @@ namespace Services_Layer
             }
 
             return queriable;
+        }
+
+        private async Task Notificate(Guid authorId)
+        {
+            var subscriptions = await _dbContext.Subscriptions
+                .Include(x=>x.LibraryUser)
+                .Include(x => x.Author)
+                .Where(x => x.AuthorId==authorId).ToListAsync();
+            foreach (var subscription in subscriptions)
+            {
+                string fromAddress = _configuration.GetSection("AppSettings:Sender").Value;
+                string msg = _configuration.GetSection("AppSettings:Message").Value;
+                string body = $"new book of {subscription.Author.Name}";
+
+                await _emailSender.SendEmail(fromAddress, subscription.LibraryUser.Email,msg,body);
+            }
         }
     }
 }

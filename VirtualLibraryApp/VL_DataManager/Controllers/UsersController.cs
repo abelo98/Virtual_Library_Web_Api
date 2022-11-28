@@ -67,12 +67,6 @@ namespace VL_DataManager.Controllers
 
         }
 
-        // PUT api/<UserController>/5
-        [HttpPut("{userId}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         [HttpPatch("{userId}")]
         public async Task<IActionResult> Patch(Guid id, [FromBody] JsonPatchDocument<LibraryUserDtoRequest> libraryUserDto)
         {
@@ -118,19 +112,21 @@ namespace VL_DataManager.Controllers
         [HttpPost("{userId}/subscribe-to-author/{authorId}")]
         public async Task<IActionResult> SubscribeToAuthor(Guid userId, Guid authorId)
         {
+            Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };
+            await _subscriptionService.Insert(subscription);
+            return Ok();
+            //try
+            //{
+            //    Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };
+            //    await _subscriptionService.Insert(subscription);
+            //    return Ok();
+            //}
+            //catch (Exception)
+            //{
 
-            try
-            {
-                Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };
-                await _subscriptionService.Insert(subscription);
-                return Ok();
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                        "Error inserting data on the database");
-            }
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //            "Error inserting data on the database");
+            //}
 
 
         }
