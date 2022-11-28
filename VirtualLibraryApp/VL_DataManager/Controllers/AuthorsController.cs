@@ -49,67 +49,35 @@ namespace VL_DataManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            try
-            {
-                Author author = _mapper.Map<Author>(authorDto);
-                var result = await _authorService.Insert(author);
-                return Ok(_mapper.Map<AuthorDtoResponse>(result));
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                        "Error inserting data on the database");
-            }
-
+            Author author = _mapper.Map<Author>(authorDto);
+            var result = await _authorService.Insert(author);
+            return Ok(_mapper.Map<AuthorDtoResponse>(result));
 
         }
 
-        // PUT api/<AuthorController>/5
-        [HttpPut("{authorId}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE api/<AuthorController>/5
         [HttpDelete("{authorId}")]
         public async Task<IActionResult> Delete(Guid authorId)
         {
-            try
-            {
+
                 await _authorService.Delete(authorId);
                 return Ok();
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                        "Error deleting data from the database");
-            }
+           
         }
 
         // POST api/<AuthorController>
         [HttpPost("{authorId}/books")]
-        public async Task<IActionResult> Post(Guid authorId,[FromBody] BookDtoRequest bookDto)
+        public async Task<IActionResult> Post(Guid authorId, [FromBody] BookDtoRequest bookDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            try
-            {
-                Book book = _mapper.Map<Book>(bookDto);
-                var result = await _bookService.Insert(authorId, book);
-                return Ok(_mapper.Map<BookDtoResponse>(result));
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                        "Error inserting data on the database");
-            }
-
+            Book book = _mapper.Map<Book>(bookDto);
+            var result = await _bookService.Insert(authorId, book);
+            return Ok(_mapper.Map<BookDtoResponse>(result));
 
         }
     }

@@ -54,42 +54,24 @@ namespace VL_DataManager.Controllers
         [HttpDelete("{bookId}")]
         public async Task<IActionResult> Delete(Guid bookId)
         {
-            try
-            {
+
                 await _bookService.Delete(bookId);
                 return Ok();
-            }
-            catch (Exception)
-            {
 
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                        "Error deleting data from the database");
-            }
         }
 
         [HttpPost("{bookId}/reviews/from/users/{userId}")]
-        public async Task<IActionResult> Post(string bookId, Guid userId,[FromBody] BookReviewDtoRequest bookReviewDto)
+        public async Task<IActionResult> Post(string bookId, Guid userId, [FromBody] BookReviewDtoRequest bookReviewDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
 
-
             }
 
-            try
-            {
-                BookReview bookReview = _mapper.Map<BookReview>(bookReviewDto);
-                var result = await _bookReviewService.Insert(bookId, userId, bookReview);
-                return Ok(_mapper.Map<BookReviewDtoResponse>(result));
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                        "Error inserting data on the database");
-            }
-
+            BookReview bookReview = _mapper.Map<BookReview>(bookReviewDto);
+            var result = await _bookReviewService.Insert(bookId, userId, bookReview);
+            return Ok(_mapper.Map<BookReviewDtoResponse>(result));
 
         }
     }

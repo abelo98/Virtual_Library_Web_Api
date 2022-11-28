@@ -50,19 +50,21 @@ namespace VL_DataManager.Controllers
             {
                 return BadRequest(ModelState);
             }
+            LibraryUser libraryUser = _mapper.Map<LibraryUser>(libraryUserDto);
+            var result = await _libraryUserService.Insert(libraryUser);
+            return Ok(_mapper.Map<LibraryUserDtoResponse>(result));
+            //try
+            //{
+            //    LibraryUser libraryUser = _mapper.Map<LibraryUser>(libraryUserDto);
+            //    var result = await _libraryUserService.Insert(libraryUser);
+            //    return Ok(_mapper.Map<LibraryUserDtoResponse>(result));
+            //}
+            //catch (Exception)
+            //{
 
-            try
-            {
-                LibraryUser libraryUser = _mapper.Map<LibraryUser>(libraryUserDto);
-                var result = await _libraryUserService.Insert(libraryUser);
-                return Ok(_mapper.Map<LibraryUserDtoResponse>(result));
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                        "Error inserting data on the database");
-            }
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //            "Error inserting data on the database");
+            //}
 
 
         }
@@ -112,21 +114,19 @@ namespace VL_DataManager.Controllers
         [HttpPost("{userId}/subscribe-to-author/{authorId}")]
         public async Task<IActionResult> SubscribeToAuthor(Guid userId, Guid authorId)
         {
-            Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };
-            await _subscriptionService.Insert(subscription);
-            return Ok();
-            //try
-            //{
-            //    Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };
-            //    await _subscriptionService.Insert(subscription);
-            //    return Ok();
-            //}
-            //catch (Exception)
-            //{
 
-            //    return StatusCode(StatusCodes.Status500InternalServerError,
-            //            "Error inserting data on the database");
-            //}
+            try
+            {
+                Subscription subscription = new Subscription() { LibraryUserId = userId, AuthorId = authorId };
+                await _subscriptionService.Insert(subscription);
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error inserting data on the database");
+            }
 
 
         }
