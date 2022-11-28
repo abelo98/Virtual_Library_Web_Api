@@ -36,9 +36,9 @@ namespace Services_Layer
             await _repository.Update(book);
         }
 
-        public async Task Insert(Book book)
+        public async Task<Book> Insert(Book book)
         {
-            await _repository.Insert(book);
+           return await _repository.Insert(book);
         }
     }
 }

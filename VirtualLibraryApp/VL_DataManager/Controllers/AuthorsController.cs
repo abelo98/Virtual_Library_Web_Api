@@ -88,7 +88,7 @@ namespace VL_DataManager.Controllers
 
         // POST api/<AuthorController>
         [HttpPost("{id}/books")]
-        public async Task<IActionResult> Post(Guid id,[FromBody] BookDtoRequest authorDto)
+        public async Task<IActionResult> Post(Guid id,[FromBody] BookDtoRequest bookDto)
         {
             if (!ModelState.IsValid)
             {
@@ -97,8 +97,8 @@ namespace VL_DataManager.Controllers
 
             try
             {
-                Author author = _mapper.Map<Author>(authorDto);
-                var result = await _authorService.Insert(author);
+                Book book = _mapper.Map<Book>(bookDto);
+                var result = await _authorService.Insert(book);
                 return Ok(_mapper.Map<AuthorDtoResponse>(result));
             }
             catch (Exception)
