@@ -33,9 +33,11 @@ namespace VL_DataManager.Controllers
 
         // GET api/<AuthorController>/5
         [HttpGet("{authorId}")]
-        public string Get(Guid authorId)
+        public async Task<IActionResult> Get(Guid authorId)
         {
-            return "value";
+            var result = await _authorService.Get(authorId);
+            var output = _mapper.Map<AuthorDetailsDto>(result);
+            return Ok(output);
         }
 
         // POST api/<AuthorController>

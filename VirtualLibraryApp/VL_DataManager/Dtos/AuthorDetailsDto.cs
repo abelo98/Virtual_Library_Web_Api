@@ -6,6 +6,6 @@
         public string Nationality { get; set; }
         public DateTime BirthDate { get; set; }
         public int Subscribers { get; set; }
-        public ICollection<BookDtoResponse> Books { get; set; }
+        public ICollection<BookAuthorDetailsDto> Books { get; set; }
     }
 }

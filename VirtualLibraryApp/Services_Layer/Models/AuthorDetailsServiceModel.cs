@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VL_DataAccess.Models;
 
 namespace Services_Layer.Models
 {
@@ -12,6 +13,6 @@ namespace Services_Layer.Models
         public string Nationality { get; set; }
         public DateTime BirthDate { get; set; }
         public int Subscribers { get; set; }
-        public ICollection<BookServiceModel> Books { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }
